@@ -7,13 +7,15 @@ const config = {
   },
 }
 
-export function buildGetHuskyConfig(_fuseeParams: FuseeParams) {
+export function buildHusky(_fuseeParams: FuseeParams) {
   /**
    * Get the Husky configuration object
    */
-  function getHuskyConfig(): typeof config {
-    return config
+  function get(): typeof config
+  function get<T extends {}>(merge: T): typeof config & T
+  function get<T extends {}>(merge?: T): typeof config | (typeof config & T) {
+    return { ...config, ...merge }
   }
 
-  return getHuskyConfig
+  return get
 }

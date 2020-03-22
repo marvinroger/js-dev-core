@@ -5,12 +5,16 @@ const makeConfig = (_fuseeParams: FuseeParams) => ({
   [LINT_GLOB]: [`fusee lint`],
 })
 
-export function buildGetLintStagedConfig(fuseeParams: FuseeParams) {
+export function buildLintStaged(fuseeParams: FuseeParams) {
   /**
    * Get the lint-staged configuration object
    */
-  function get() {
-    return makeConfig(fuseeParams)
+  function get(): ReturnType<typeof makeConfig>
+  function get<T extends {}>(merge: T): ReturnType<typeof makeConfig> & T
+  function get<T extends {}>(
+    merge?: T
+  ): ReturnType<typeof makeConfig> | (ReturnType<typeof makeConfig> & T) {
+    return { ...makeConfig(fuseeParams), ...merge }
   }
 
   return get

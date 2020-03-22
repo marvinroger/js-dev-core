@@ -1,9 +1,10 @@
-import { buildGetCommitlintConfig } from './configs/commitlint'
-import { buildGetEslintConfig } from './configs/eslint'
-import { buildGetHuskyConfig } from './configs/husky'
-import { buildGetJestConfig } from './configs/jest'
-import { buildGetLintStagedConfig } from './configs/lint-staged'
-import { buildGetPrettierConfig } from './configs/prettier'
+import { buildCommitlint } from './configs/commitlint'
+import { buildEslint } from './configs/eslint'
+import { buildHusky } from './configs/husky'
+import { buildJest } from './configs/jest'
+import { buildLintStaged } from './configs/lint-staged'
+import { buildPrettier } from './configs/prettier'
+import { buildReleaseIt } from './configs/release-it'
 
 export interface FuseeParams {
   /* Is the project a monorepo? */
@@ -13,18 +14,19 @@ export interface FuseeParams {
   react?: boolean
 }
 
-export function buildFusee(params: FuseeParams) {
+export function fusee(params: FuseeParams) {
   const { monorepo = false, react = false } = params
 
   const hydratedParams = { monorepo, react }
 
   return {
     _params: hydratedParams,
-    getCommitlintConfig: buildGetCommitlintConfig(hydratedParams),
-    getEslintConfig: buildGetEslintConfig(hydratedParams),
-    getHuskyConfig: buildGetHuskyConfig(hydratedParams),
-    getJestConfig: buildGetJestConfig(hydratedParams),
-    getLintStagedConfig: buildGetLintStagedConfig(hydratedParams),
-    getPrettierConfig: buildGetPrettierConfig(hydratedParams),
+    commitlint: buildCommitlint(hydratedParams),
+    eslint: buildEslint(hydratedParams),
+    husky: buildHusky(hydratedParams),
+    jest: buildJest(hydratedParams),
+    lintStaged: buildLintStaged(hydratedParams),
+    prettier: buildPrettier(hydratedParams),
+    releaseIt: buildReleaseIt(hydratedParams),
   }
 }

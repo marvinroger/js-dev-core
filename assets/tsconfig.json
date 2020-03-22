@@ -1,4 +1,0 @@
-{
-  "extends": "@marvinroger/fusee/tsconfig",
-  "include": ["src/index.ts"]
-}
